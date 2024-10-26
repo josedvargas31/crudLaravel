@@ -42,7 +42,8 @@ class Users extends Controller
      */
     public function show(string $id)
     {
-        //
+        $item = User::find($id);
+        return view('modules/users/show', compact('item'));
     }
 
     /**
