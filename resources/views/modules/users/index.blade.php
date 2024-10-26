@@ -16,6 +16,7 @@
             </button>
         </div>
 
+        {{-- Tabla --}}
         <div class="flex justify-center p-auto">
             <div class="container flex justify-center rounded-xl shadow-2xl p-4 w-8/12">
                 <div class="overflow-hidden rounded-lg shadow-lg border bg-white">
@@ -25,49 +26,73 @@
                             <tr>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Name</th>
+                                    Id</th>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Status</th>
+                                    Name</th>
+                                {{-- <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Status</th> --}}
                                 <th scope="col"
                                     class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Actions</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <!-- Row 1 -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap flex items-center space-x-3">
-                                    <img src="https://via.placeholder.com/40" alt="Avatar" class="w-10 h-10 rounded-full">
-                                    <div>
-                                        <div class="text-sm font-medium text-gray-900">Tony Reichert</div>
-                                        <div class="text-sm text-gray-500">tony.reichert@example.com</div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                            {{-- Utilizamos forelse porque si no hay ningun dato por mostrar retornamos que la tabla esta vacia --}}
+
+                            @forelse ($items as $item)
+                                <!-- Row 1 -->
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{ $item->id }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap flex items-center space-x-3">
+                                        <img src="https://via.placeholder.com/40" alt="Avatar"
+                                            class="w-10 h-10 rounded-full">
+                                        <div>
+                                            <div class="text-sm font-medium text-gray-900">{{ $item->name }}</div>
+                                            {{-- <div class="text-sm text-gray-500">tony.reichert@example.com</div> --}}
+                                        </div>
+                                    </td>
+                                    {{-- <td class="px-6 py-4 whitespace-nowrap">
                                     <span
                                         class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
+                                </td> --}}
+                                    <td class="px-6 py-4 whitespace-nowrap text-center space-x-2">
+                                        <form action="" method="post">
+                                            <button
+                                                class="transition ease-in-out delay-150 bg-stone-400 hover:-translate-y-1 hover:scale-110 hover:bg-zinc-600 duration-300 text-white rounded-lg px-3 py-2 m-2">
+                                                <i class="bi bi-list-columns-reverse"></i><a href=""
+                                                    class="p-2">Details</a>
+                                            </button>
+                                            <button
+                                                class="transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 text-white rounded-lg px-3 py-2 m-2">
+                                                <i class="bi bi-pen-fill"></i><a href="" class="p-2">Edit user</a>
+                                            </button>
+                                            <button
+                                                class="transition ease-in-out delay-150 bg-red-500 hover:-translate-y-1 hover:scale-110 hover:bg-amber-600 duration-300 text-white rounded-lg px-3 py-2 m-2">
+                                                <i class="bi bi-archive-fill"></i><a href=""
+                                                    class="p-2">Delete user</a>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-red-700">No
+                                        hay datos en la tabla...</span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center space-x-2">
-                                    <button
-                                        class="transition ease-in-out delay-150 bg-stone-400 hover:-translate-y-1 hover:scale-110 hover:bg-zinc-600 duration-300 text-white rounded-lg px-3 py-2 m-2">
-                                        <i class="bi bi-list-columns-reverse"></i><a href="" class="p-2">Mostrar</a>
-                                    </button>
-                                    <button
-                                        class="transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 text-white rounded-lg px-3 py-2 m-2">
-                                        <i class="bi bi-pen-fill"></i><a href="" class="p-2">Editar</a>
-                                    </button>
-                                    <button
-                                        class="transition ease-in-out delay-150 bg-red-500 hover:-translate-y-1 hover:scale-110 hover:bg-amber-600 duration-300 text-white rounded-lg px-3 py-2 m-2">
-                                        <i class="bi bi-archive-fill"></i><a href="" class="p-2">Eliminar</a>
-                                    </button>
-                                </td>
-                            </tr>
+                            @endforelse
                             <!-- Row 2 -->
 
                             <!-- Repeat rows as needed -->
                         </tbody>
                     </table>
+                    <div>
+                        {{ $items->links() }}
+                    </div>
                 </div>
             </div>
 
