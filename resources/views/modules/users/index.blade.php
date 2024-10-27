@@ -59,7 +59,7 @@
                                         class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
                                 </td> --}}
                                     <td class="px-6 py-4 whitespace-nowrap text-center space-x-2">
-                                        <form action="{{ route('destroy', $item->id) }}" method="post">
+                                        <form class="deleteUserForm" action="{{ route('destroy', $item->id) }}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <button
@@ -74,18 +74,17 @@
                                             </button>
                                             <button
                                                 class="transition ease-in-out delay-150 bg-red-500 hover:-translate-y-1 hover:scale-110 hover:bg-amber-600 duration-300 text-white rounded-lg px-2 py-2 m-2">
-                                                <i class="bi bi-archive-fill"></i><a href="" class="p-2">Delete
-                                                    user</a>
+                                                <i class="bi bi-archive-fill p-2"></i>Delete user
                                             </button>
                                         </form>
                                     </td>
                                 </tr>
-                            @empty
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-red-700">No
-                                        hay datos en la tabla...</span>
-                                </td>
+                                @empty
+                                <tr>
+                                    <td colspan="3" class="px-6 py-4 whitespace-nowrap text-center">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-red-700">No hay datos en la tabla...</span>
+                                    </td>
+                                </tr>
                             @endforelse
                             <!-- Row 2 -->
 
@@ -101,4 +100,39 @@
         </div>
 
     </div>
+@endsection
+@section('scripts')
+
+    <script>
+        // Seleccionar todos los formularios con la clase 'deleteUserForm'
+        $('.deleteUserForm').on('submit', function(e) {
+            e.preventDefault(); // Detener el envío del formulario
+            const form = this; // Referencia al formulario actual
+            
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); // Enviar el formulario si se confirma
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your user has been deleted.",
+                        icon: "success"
+                    });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire({
+                        title: "Cancelled",
+                        text: "The user is safe :)",
+                        icon: "error"
+                    });
+                }
+            });
+        });
+    </script>
 @endsection
