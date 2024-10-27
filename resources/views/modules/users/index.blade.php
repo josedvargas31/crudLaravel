@@ -48,8 +48,7 @@
                                         {{ $item->id }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap flex items-center space-x-3">
-                                        <img src="img/profile.png" alt="Avatar"
-                                            class="w-10 h-10 rounded-full">
+                                        <img src="img/profile.png" alt="Avatar" class="w-10 h-10 rounded-full">
                                         <div>
                                             <div class="text-sm font-medium text-gray-900">{{ $item->name }}</div>
                                             {{-- <div class="text-sm text-gray-500">tony.reichert@example.com</div> --}}
@@ -68,7 +67,8 @@
                                             </button>
                                             <button
                                                 class="transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 text-white rounded-lg px-2 py-2 m-2">
-                                                <i class="bi bi-pen-fill"></i><a href="" class="p-2">Edit user</a>
+                                                <i class="bi bi-pen-fill"></i><a href="{{ route('edit', $item->id) }}"
+                                                    class="p-2">Edit user</a>
                                             </button>
                                             <button
                                                 class="transition ease-in-out delay-150 bg-red-500 hover:-translate-y-1 hover:scale-110 hover:bg-amber-600 duration-300 text-white rounded-lg px-2 py-2 m-2">
