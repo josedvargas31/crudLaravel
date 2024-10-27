@@ -59,7 +59,9 @@
                                         class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
                                 </td> --}}
                                     <td class="px-6 py-4 whitespace-nowrap text-center space-x-2">
-                                        <form action="" method="post">
+                                        <form action="{{ route('destroy', $item->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
                                             <button
                                                 class="transition ease-in-out delay-150 bg-stone-400 hover:-translate-y-1 hover:scale-110 hover:bg-zinc-600 duration-300 text-white rounded-lg px-2 py-2 m-2">
                                                 <i class="bi bi-list-columns-reverse"></i><a

@@ -65,12 +65,14 @@ class Users extends Controller
         $item->save();
         return to_route('index');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $item = User::find($id);
+        $item->delete();
+        return to_route('index');
     }
 }
