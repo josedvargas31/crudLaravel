@@ -20,6 +20,11 @@
 
     <header class="p-5 border-b bg-white shadow flex justify-between items-center">
         <img class="rounded-xl w-12" src="{{ asset('img/logoD.svg') }}" alt="Imagen de registro">
+        <div class="flex justify-center items-center">
+            <h2 class="text-center text-3xl font-black p-2">Laravel 11 :)</h2>
+            <img width="64" height="64" src="https://img.icons8.com/nolan/64/laravel.png" alt="laravel" />
+        </div>
+
         <h1 class="text-3xl font-black">
             Crud
         </h1>
@@ -31,8 +36,14 @@
 
     <!-- Lo que hace es llamar cierta parte de un codigo cuando estemos en esta plantilla -->
     {{-- Aca se declara --}}
-    @yield('contenido')
-    @yield('scripts')
+    <main class="flex flex-col justify-center mt-10">
+        @yield('contenido')
+        @yield('scripts')
+    </main>
+
+    <footer class="text-center p-5 text-gray-500 font-bold uppercase">
+        Todos los derechos reservados {{ date('Y') }}
+    </footer>
 
 </body>
 

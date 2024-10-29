@@ -8,7 +8,7 @@
             <img class="rounded-xl " src="{{ asset('img/imgRegister.svg') }}" alt="Imagen de registro">
         </div>
         <div class="md:w-96 bg-white p-6 rounded-lg shadow-xl">
-            <form action="{{ route('store') }}" method="post">
+            <form id="createUserForm" action="{{ route('store') }}" method="post">
                 @csrf
                 @method('POST')
                 <div class="mb-4">
@@ -24,4 +24,42 @@
             </form>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        // Seleccionar todos los formularios con la clase 'deleteUserForm'
+        $('#createUserForm').on('submit', function(e) {
+            e.preventDefault(); // Detener el envío del formulario
+            const form = this; // Referencia al formulario actual
+
+            let timerInterval;
+            Swal.fire({
+                title: "Please wait!",
+                html: "I will close in <b></b> milliseconds.",
+                timer: 1000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                    const timer = Swal.getPopup().querySelector("b");
+                    timerInterval = setInterval(() => {
+                        timer.textContent = `${Swal.getTimerLeft()}`;
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval);
+                }
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    Swal.fire({
+                        title: "Registered!",
+                        text: "Your user has been registered.",
+                        icon: "success"
+                    });
+                    console.log("I was closed by the timer");
+                    form.submit(); // Enviar el formulario si se confirma
+                }
+            });
+        });
+    </script>
 @endsection
